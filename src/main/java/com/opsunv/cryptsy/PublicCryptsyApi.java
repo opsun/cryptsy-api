@@ -13,7 +13,7 @@ import com.opsunv.cryptsy.utils.WebUtils;
  * @author opsun
  * @since 1.0, 2014-6-5
  */
-public class PublicCryptsyApi extends CryptsyApi{
+public class PublicCryptsyApi extends AbstractCryptsyApi{
 	private final static String PUB_API = "http://pubapi.cryptsy.com/api.php";
 	
 	private ObjectMapper objectMapper = new ObjectMapper();

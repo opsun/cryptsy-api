@@ -24,7 +24,7 @@ import com.opsunv.cryptsy.utils.WebUtils;
  * @author opsun
  * @since 1.0, 2014-6-5
  */
-public class AuthenticatedCryptsyAPI extends CryptsyApi{
+public class AuthenticatedCryptsyAPI extends AbstractCryptsyApi{
 	private final static String API_URL = "https://www.cryptsy.com/api";
 	
 	private String publicKey;
