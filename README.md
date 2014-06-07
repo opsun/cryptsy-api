@@ -11,7 +11,7 @@ CryptsyApi api = new MixedCryptsyApi();
 api.exec(new XXXXReuqest());
 ```
 
-If you only want use public api
+If you only want to use public api
 ```java
 CryptsyApi api = new PublicCryptsyApi();
 api.exec(new XXXXRequest());
