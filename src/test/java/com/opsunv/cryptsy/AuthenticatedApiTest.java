@@ -15,6 +15,7 @@ import com.opsunv.cryptsy.request.MarketTradesRequest;
 import com.opsunv.cryptsy.request.MyOrdersRequest;
 import com.opsunv.cryptsy.request.MyTradesRequest;
 import com.opsunv.cryptsy.request.MyTransactionsRequest;
+import com.opsunv.cryptsy.request.MyTransfersRequest;
 import com.opsunv.cryptsy.response.AllMyOrdersResponse;
 import com.opsunv.cryptsy.response.AllMyTradesResponse;
 import com.opsunv.cryptsy.response.DepthResponse;
@@ -26,9 +27,10 @@ import com.opsunv.cryptsy.response.MarketordersResponse;
 import com.opsunv.cryptsy.response.MyOrdersResponse;
 import com.opsunv.cryptsy.response.MyTradesResponse;
 import com.opsunv.cryptsy.response.MyTransactionsResponse;
+import com.opsunv.cryptsy.response.MyTransfersResponse;
 
 public class AuthenticatedApiTest extends TestCase {
-	private AuthenticatedCryptsyAPI api = new AuthenticatedCryptsyAPI("dacc1de7e0c5e3e625fa34345ffa030fc4d552e6", "bed25ee66a1f6b29d4f6bf0e28adbf8eab93ace6a71b8f89e14f907d9ba561472e5f320d83a08697");
+	private AuthenticatedCryptsyAPI api = new AuthenticatedCryptsyAPI("63e302e5467c205bb37caf45100eb23fd8b5f6b0", "2de9016d53ae97cf2859bb3f3f6f7fa9973b13d46c24252a668ad64c101e94a4322d8b08e892483e");
 	
 	public void testGetinfo() throws Exception{
 		GetInfoResponse response = api.execute(new GetInfoRequest());
@@ -101,4 +103,8 @@ public class AuthenticatedApiTest extends TestCase {
 		System.out.println(id);
 	}
 	
+	public void testMytransfers() throws Exception{
+		MyTransfersResponse response = api.execute(new MyTransfersRequest());
+		System.out.println(response);
+	}
 }
