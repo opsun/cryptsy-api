@@ -12,11 +12,10 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.codec.binary.Hex;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opsunv.cryptsy.utils.Assert;
+import com.opsunv.cryptsy.utils.ParseUtils;
 import com.opsunv.cryptsy.utils.WebUtils;
 
 /**
@@ -94,7 +93,8 @@ public class AuthenticatedCryptsyAPI extends AbstractCryptsyApi{
 	    mac.init(secretKey);
 	   
 	    byte[] text = str.getBytes();
-	    return Hex.encodeHexString(mac.doFinal(text));
+	    
+	    return ParseUtils.hex(mac.doFinal(text));
 	}
 
 }
