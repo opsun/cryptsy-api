@@ -4,11 +4,14 @@ import junit.framework.TestCase;
 
 import com.opsunv.cryptsy.request.AllMyOrdersRequest;
 import com.opsunv.cryptsy.request.AllMyTradesRequest;
+import com.opsunv.cryptsy.request.CalculateFeesRequest;
 import com.opsunv.cryptsy.request.CancelOrderRequest;
 import com.opsunv.cryptsy.request.CreateOrderRequest;
 import com.opsunv.cryptsy.request.DepthRequest;
+import com.opsunv.cryptsy.request.GenerateNewAddressRequest;
 import com.opsunv.cryptsy.request.GetInfoRequest;
 import com.opsunv.cryptsy.request.GetMarketsRequest;
+import com.opsunv.cryptsy.request.GetMyDepositAddressesRequest;
 import com.opsunv.cryptsy.request.GetWalletStatusRequest;
 import com.opsunv.cryptsy.request.MarketOrdersRequest;
 import com.opsunv.cryptsy.request.MarketTradesRequest;
@@ -18,9 +21,11 @@ import com.opsunv.cryptsy.request.MyTransactionsRequest;
 import com.opsunv.cryptsy.request.MyTransfersRequest;
 import com.opsunv.cryptsy.response.AllMyOrdersResponse;
 import com.opsunv.cryptsy.response.AllMyTradesResponse;
+import com.opsunv.cryptsy.response.CalculateFeesResponse;
 import com.opsunv.cryptsy.response.DepthResponse;
 import com.opsunv.cryptsy.response.GetInfoResponse;
 import com.opsunv.cryptsy.response.GetMarketsResponse;
+import com.opsunv.cryptsy.response.GetMyDepositAddressesResponse;
 import com.opsunv.cryptsy.response.GetWalletStatusResponse;
 import com.opsunv.cryptsy.response.MarketTradesResponse;
 import com.opsunv.cryptsy.response.MarketordersResponse;
@@ -30,7 +35,9 @@ import com.opsunv.cryptsy.response.MyTransactionsResponse;
 import com.opsunv.cryptsy.response.MyTransfersResponse;
 
 public class AuthenticatedApiTest extends TestCase {
-	private AuthenticatedCryptsyAPI api = new AuthenticatedCryptsyAPI("63e302e5467c205bb37caf45100eb23fd8b5f6b0", "2de9016d53ae97cf2859bb3f3f6f7fa9973b13d46c24252a668ad64c101e94a4322d8b08e892483e");
+	
+	//
+	private AuthenticatedCryptsyAPI api = new AuthenticatedCryptsyAPI("public key", "private key");
 	
 	public void testGetinfo() throws Exception{
 		GetInfoResponse response = api.execute(new GetInfoRequest());
@@ -106,5 +113,23 @@ public class AuthenticatedApiTest extends TestCase {
 	public void testMytransfers() throws Exception{
 		MyTransfersResponse response = api.execute(new MyTransfersRequest());
 		System.out.println(response);
+	}
+	
+	public void testGetmydepositaddresses() throws Exception{
+		GetMyDepositAddressesResponse response = api.execute(new GetMyDepositAddressesRequest());
+		System.out.println(response.getDepositAddresses());
+	}
+	
+	public void testGeneratenewaddress() throws Exception{
+		GenerateNewAddressRequest request = new GenerateNewAddressRequest();
+		request.setCurrencyId(3);
+		//request.setCurrencyCode("BTC");
+		String addr = api.execute(request);
+		System.out.println(addr);
+	}
+	
+	public void testCalculateFees() throws Exception{
+		CalculateFeesResponse response = api.execute(new CalculateFeesRequest(CalculateFeesRequest.BUY,100,0.000345d));
+		System.out.println("fee:"+response.getFee()+",net:"+response.getNet());
 	}
 }
