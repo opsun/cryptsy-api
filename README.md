@@ -16,14 +16,14 @@ api.exec(new XXXXReuqest());
 If you only want to use public api
 
 ```java
-CryptsyApi api = new PublicCryptsyApi("publick key","private key");
+CryptsyApi api = new PublicCryptsyApi();
 api.exec(new XXXXRequest());
 ```
 
 Or Authenticated api
 
 ```java
-CryptsyApi api = new AuthenticatedCryptsyApi();
+CryptsyApi api = new AuthenticatedCryptsyApi("publick key","private key");
 api.exec(new XXXXRequest());
 ```
 
