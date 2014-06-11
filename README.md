@@ -9,7 +9,7 @@ Example Usage
 To use it just:
 
 ```java
-CryptsyApi api = new MixedCryptsyApi();
+CryptsyApi api = new MixedCryptsyApi("publick key","private key");
 api.exec(new XXXXReuqest());
 ```
 
