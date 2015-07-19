@@ -14,9 +14,22 @@ import com.opsunv.cryptsy.utils.WebUtils;
  * @since 1.0, 2014-6-5
  */
 public class PublicCryptsyApi extends AbstractCryptsyApi{
-	private final static String PUB_API = "http://pubapi.cryptsy.com/api.php";
+	private final static String DEFAULT_PUB_API = "http://pubapi.cryptsy.com/api.php";
+	
+	private String apiUrl;
 	
 	private ObjectMapper objectMapper = new ObjectMapper();
+	
+	public PublicCryptsyApi() {
+		this(null);
+	}
+	
+	public PublicCryptsyApi(String apiUrl) {
+		this.apiUrl = apiUrl;
+		if(this.apiUrl==null){
+			apiUrl = DEFAULT_PUB_API;
+		}
+	}
 
 	@Override
 	protected JsonNode query(String method,Map<String, String> params) throws IOException{
@@ -25,7 +38,7 @@ public class PublicCryptsyApi extends AbstractCryptsyApi{
 			map.putAll(params);
 		}
 		map.put("method", method);
-		return objectMapper.readTree(WebUtils.doGet(PUB_API, map));
+		return objectMapper.readTree(WebUtils.doGet(apiUrl, map));
 	}
 	
 }

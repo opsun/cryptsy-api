@@ -13,9 +13,13 @@ public class MixedCryptsyApi implements CryptsyApi{
 	private CryptsyApi authApi;
 	
 	public MixedCryptsyApi(String publicKey,String privateKey) {
-		pubApi = new PublicCryptsyApi();
-		authApi = new AuthenticatedCryptsyAPI(publicKey,privateKey);
-	} 
+		this(publicKey,privateKey,null,null);
+	}
+	
+	public MixedCryptsyApi(String publicKey,String privateKey,String publicApiUrl,String privateApiUrl) {
+		pubApi = new PublicCryptsyApi(publicApiUrl);
+		authApi = new AuthenticatedCryptsyAPI(publicKey,privateKey,privateApiUrl);
+	}
 
 	@Override
 	public <T> T execute(CryptsyRequest<T> request) throws ApiException,IOException {

@@ -24,7 +24,9 @@ import com.opsunv.cryptsy.utils.WebUtils;
  * @since 1.0, 2014-6-5
  */
 public class AuthenticatedCryptsyAPI extends AbstractCryptsyApi{
-	private final static String API_URL = "https://www.cryptsy.com/api";
+	private final static String DEFAULT_API_URL = "https://www.cryptsy.com/api";
+
+	private String apiUrl;
 	
 	private String publicKey;
 	
@@ -32,17 +34,27 @@ public class AuthenticatedCryptsyAPI extends AbstractCryptsyApi{
 	
 	private ObjectMapper objectMapper = new ObjectMapper();
 	
+	public AuthenticatedCryptsyAPI(String publicKey, String privateKey) {
+		this(publicKey,privateKey,null);
+	}
+	
 	/**
 	 * get public key and private key from https://www.cryptsy.com/users/settings
 	 * @param publicKey
 	 * @param privateKey
+	 * @param apuUrl
 	 */
-	public AuthenticatedCryptsyAPI(String publicKey, String privateKey) {
+	public AuthenticatedCryptsyAPI(String publicKey, String privateKey,String apiUrl) {
 		if(Assert.isEmpty(publicKey,privateKey)){
 			throw new IllegalArgumentException("both a public key and private key cannot be empty!");
 		}
 		this.publicKey = publicKey;
 		this.privateKey = privateKey;
+		this.apiUrl = apiUrl;
+		
+		if(this.apiUrl==null){
+			apiUrl = DEFAULT_API_URL;
+		}
 	}
 	
 	@Override
@@ -74,7 +86,7 @@ public class AuthenticatedCryptsyAPI extends AbstractCryptsyApi{
 		header.put("Key", this.publicKey);
 		header.put("Sign", sign);
 		
-		return objectMapper.readTree(WebUtils.doPost(API_URL, data, header));
+		return objectMapper.readTree(WebUtils.doPost(apiUrl, data, header));
 	}
 	
 	/**
